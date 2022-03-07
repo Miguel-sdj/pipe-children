@@ -22,13 +22,13 @@ int main() {
 
     int children = fork();
 
-    if (children == 0){
+    if (children != 0){
         for (int i = 0; i < QTD_MESSAGES; i++) {
             printf("Pai vai enviar: %d is %s\n", i, writeMessages[i]);
             write(pipeFileDescriptors[1], writeMessages[0], sizeof(char) * 40);
         }
     }
-    else if (children > 0) {
+    else {
         for (int i = 0; i < QTD_MESSAGES; i++) {
             read(pipeFileDescriptors[0], readMessages, sizeof(char) * 40);
             printf("Filho vai ler: %d is %s\n", i, readMessages);
